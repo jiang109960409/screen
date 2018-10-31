@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+
+<div th:fragment="Header" id="nav">
+	<div id="navMenu">
+		<ul>
+			<li class="home"><a id="homeHref" th:href="@{/{name}(name=${nav.buildingName})}">网站首页</a></li>
+			<li><a th:href="@{/aboutus/{name}(name=${nav.buildingName})}">关于我们</a></li>
+			<li><a th:href="@{/companyshow/{name}(name=${nav.buildingName})}">企业展示</a></li>
+			<li><a th:href="@{/comein/{name}(name=${nav.buildingName})}">我要入驻</a></li>
+			<li><a th:href="@{/service/{name}(name=${nav.buildingName})}">我要服务</a></li>
+			<li><a th:href="@{/job/{name}(name=${nav.buildingName})}">人才招聘</a></li>
+			<li><a th:href="@{/strength/{name}(name=${nav.buildingName})}">园区亮点</a></li>
+			<li><a th:href="@{/contactus/{name}(name=${nav.buildingName})}">联系我们</a></li>
+		</ul>
+	</div>
+</div>
+</head>
+</html>

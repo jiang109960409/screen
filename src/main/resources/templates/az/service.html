@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+</head>
+<body>
+	<div th:fragment="Service">
+		<div id="carouselExampleSlidesOnly" class="carousel slide"
+			data-ride="carousel">
+			<div class="carousel-inner">
+				<div class="carousel-item active">
+					<img class="d-block w-100 conver-img"
+						th:src="@{~/image/service.jpg}" alt="我要服务">
+				</div>
+			</div>
+		</div>
+
+		<div th:replace="common/header::Header"></div>
+
+		<div class="container" style="margin-bottom: 150px;">
+			<div class="row" style="margin-top: 25px; margin-bottom: 25px;">
+				<div class="col-3">
+					<div th:replace="common/fragment::ContactUs"></div>
+				</div>
+				<div class="col-1"></div>
+				<div class="col-8 scrollbox">
+					<div class="card">
+						<h5 class="card-header">我要服务</h5>
+						<div class="card-body">
+							<div class="card-text card-custom">
+								<div th:utext="${nav.data.text}"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>

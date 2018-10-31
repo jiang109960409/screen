@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+<div th:fragment="AboutUs">
+	<div id="carouselExampleSlidesOnly" class="carousel slide"
+		data-ride="carousel">
+		<div class="carousel-inner">
+			<div class="carousel-item active">
+				<img class="d-block w-100 conver-img"
+					th:src="@{~/image/aboutus2.jpg}" alt="关于我们">
+			</div>
+		</div>
+	</div>
+
+	<div th:replace="common/header::Header"></div>
+
+	<div class="container" style="margin-bottom:425px;">
+		<div class="row" style="margin-top: 25px; margin-bottom: 25px;">
+			<div class="col-3">
+				<div th:replace="common/fragment::ContactUs"></div>
+			</div>
+			<div class="col-1"></div>
+			<div class="col-8">
+				<div class="card">
+					<h5 class="card-header">关于我们</h5>
+					<div class="card-body" style="max-width:100%; max-height:100%;">
+						<div class="card-text card-custom" >
+						 <div th:utext="${nav.data.text}"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+</head>
+</html>

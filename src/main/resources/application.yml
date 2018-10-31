@@ -4,7 +4,7 @@ server:
     access-log-enabled: true
     base-dir: .
 spring:
-  profiles.active: test
+  profiles.active: dev
   application.name: screen
   aop:
     auto: true
@@ -29,6 +29,8 @@ spring:
     formcontent.putfilter.enabled: true
   jmx:
     enabled: true
+  thymeleaf:
+    cache: false
 endpoints:
   shutdown:
     enabled: true

@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+<title>济南西部创新园</title>
+<link th:href="@{~/css/css.css}" rel="stylesheet" media="screen"
+	type="text/css"></link>
+<link rel="icon" th:href="@{~/image/logo2.png}"></link>
+<link th:href="@{~/css/style.css}" rel="stylesheet" media="screen"
+	type="text/css"></link>
+<link rel="stylesheet" th:href="@{~/css/bootstrap.min.css}"></link>
+<script language="javascript" type="text/javascript"
+	th:src="@{~/js/index.js}"></script>
+<script th:src="@{~/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{~/js/popper.min.js}"></script>
+<script th:src="@{~/js/bootstrap.min.js}"></script>
+<link th:href="@{~/css/lanrenzhijiaa.css}" type="text/css"
+	rel="stylesheet"></link>
+<script type="text/javascript"
+	th:src="@{~/js/jquery.rollGallery_yeso.js}"></script>
+<script type="text/javascript" th:src="@{~/js/jquery.nicescroll.min.js}"></script>
+<script type="text/javascript">
+	$(document).ready(function($) {
+		$(".scrollbox").niceScroll(); // 楼层滚动条
+		$(".companyIconScroll").niceScroll(); // 企业图标滚动
+		$("#toplist").rollGallery({ // 列表轮播
+			direction : "top",
+			speed : 2000,
+			showNum : 12
+		});
+		$("#companyIconList").rollGallery({ // 企业图标轮播
+			direction : "left",
+			speed : 2000,
+			showNum : 1
+		});
+        function jump(count) {  
+            window.setTimeout(function(){  
+                count--;  
+                if(count > 0) {  
+                    jump(count);  
+                } else {  
+                    location.href=$("#homeHref").attr("href");  
+                }  
+            }, 1000);  
+        }  
+        //jump(10);  
+	});
+</script>
+</head>
+
+<body>
+	<div id="header">
+		<div class="header_top">
+			<ul>
+				<img th:src="@{~/image/logo.png}">
+			</ul>
+		</div>
+	</div>
+
+	<div th:if="${nav.isHome}">
+		<div th:replace="common/slide::IndexSlide" th:if="${nav.isHome}"></div>
+		<div th:replace="common/header::Header"></div>
+		<div th:replace="az/index::Index"></div>
+		<div th:replace="common/slide::CompanyIconSlide"></div>
+	</div>
+	<div th:unless="${nav.isHome}">
+		<div th:switch="${nav.fragmentName}">
+			<div th:case="aboutus">
+				<div th:replace="az/aboutus::AboutUs"></div>
+			</div>
+			<div th:case="companyshow">
+				<div th:replace="az/companyshow::CompanyShow"></div>
+			</div>
+			<div th:case="comein">
+				<div th:replace="az/comein::ComeIn"></div>
+			</div>
+			<div th:case="service">
+				<div th:replace="az/service::Service"></div>
+			</div>
+			<div th:case="job">
+				<div th:replace="az/job::Job"></div>
+			</div>
+			<div th:case="strength">
+				<div th:replace="az/strength::Strength"></div>
+			</div>
+			<div th:case="contactus">
+				<div th:replace="az/contactus::ContactUs"></div>
+			</div>
+			<div th:case="companydetail">
+				<div th:replace="az/companydetail::CompanyDetail"></div>
+			</div>
+		</div>
+	</div>
+	<div th:replace="common/footer::Footer"></div>
+</body>
+</html>

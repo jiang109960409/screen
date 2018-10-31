@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)https://getbootstrap.com/docs/4.1/examples/dashboard/ -->
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" th:href="@{~/image/logo2.png}">
+
+<title>济南西部创新园-后台管理</title>
+<link th:href="@{~/css/admin.css}" rel="stylesheet" media="screen"
+	type="text/css"></link>
+<link th:href="@{~/css/dashboard.css}" rel="stylesheet" media="screen"
+	type="text/css"></link>
+<link rel="stylesheet" th:href="@{~/css/bootstrap.min.css}"></link>
+<link th:href="@{~/css/dashboard.css}" rel="stylesheet">
+<script th:src="@{~/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{~/js/popper.min.js}"></script>
+<script th:src="@{~/js/bootstrap.min.js}"></script>
+<script th:src="@{~/js/ckeditor.js}"></script>
+<script th:src="@{~/js/zh-cn.js}"></script>
+<script type="text/javascript">
+	function deletePic() {
+		var ids = ""
+		$("input[name='slideCheck']:checked").each(function() {
+			ids = ids + "," + this.value
+		});
+		if(ids.length == 0) {
+			alert("请选择要删除的图片");
+			return;
+		}
+		$.post("/slide/delete", {
+			ids : ids
+		}, function(data) {
+			var objs = jQuery.parseJSON(data);
+			alert(objs.message);
+			window.location.reload();
+		});
+	}
+	
+	function deleteCompany() {
+		var ids = ""
+		$("input[name='companyCheck']:checked").each(function() {
+			ids = ids + "," + this.value
+		});
+		if(ids.length == 0) {
+			alert("请选择要删除的公司");
+			return;
+		}
+		$.post("/company/delete", {
+			ids : ids
+		}, function(data) {
+			var objs = jQuery.parseJSON(data);
+			alert(objs.message);
+			window.location.reload();
+		});
+	}
+	
+	function logout(){
+		location.href="/admin/login";
+	}
+	
+	function companyDetail(detail) {
+		if (detail == "null") {
+			$("#companyDetail").append("暂无企业详细信息");
+		} else {
+			$("#companyDetail").append(detail);
+		}
+		$('#companyDetailModal').modal('show')
+	}
+	
+</script>
+<style>
+	.ck-editor__editable {
+		min-height: 600px;
+	}
+</style>
+<body>
+	<nav
+		class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+		<a class="navbar-brand col-sm-3 col-md-2 mr-0 w-100" href="#">济南西部创新园</a>
+		<ul class="navbar-nav px-3">
+			<li class="nav-item text-nowrap"><button type="button" class="btn btn-dark" onclick="javascript: logout()">退出登录</button>
+			</li>
+		</ul>
+	</nav>
+	<div class="container-fluid" style="margin: 0px; padding: 0px;">
+		<div class="row">
+			<nav class="col-2 d-none d-md-block bg-light sidebar">
+				<div class="sidebar-sticky">
+					<div class="list-group text-center"
+						style="margin: 20px 5px auto 5px">
+						<a th:href="@{/company/list}" class="list-group-item list-group-item-action">入驻企业</a>
+						<a th:href="@{/slide/list}" class="list-group-item list-group-item-action">幻灯片</a> 
+						<a th:href="@{/info/get}" class="list-group-item list-group-item-action">创新园信息</a> 
+						<a th:href="@{/aboutus/get}" class="list-group-item list-group-item-action">关于我们</a> 
+						<a th:href="@{/comein/get}"  class="list-group-item list-group-item-action">我要入驻</a>
+						<a th:href="@{/service/get}"  class="list-group-item list-group-item-action">我要服务</a>
+						<a th:href="@{/job/get}"  class="list-group-item list-group-item-action">人才招聘</a>
+						<a th:href="@{/strength/get}"  class="list-group-item list-group-item-action">园区亮点</a>
+						<a th:href="@{/contact/get}"  class="list-group-item list-group-item-action">联系我们</a>
+					</div>
+				</div>
+			</nav>
+
+			<div class="col-10 w-100" style="margin-left: 272px;">
+				<div th:if="${data.isHome}">
+					<div class="text-center">
+						<h1>欢迎进入后台管理页面</h1>
+					</div>
+				</div>
+				<div th:unless="${data.isHome}">
+					<div th:switch="${data.moduleName}">
+						<div th:case="slide">
+							<div th:replace="admin/slide::Slide"></div>
+						</div>
+						<div th:case="info">
+							<div th:replace="admin/info::Info"></div>
+						</div>
+						<div th:case="company">
+							<div th:replace="admin/company::Company"></div>
+						</div>
+						<div th:case="*">
+							<div th:replace="admin/text::Text"></div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="container fixed-bottom text-center">
+		<p>Copyright © 济南西部创新园 版权所有</p>
+	</div>
+</body>
+</html>

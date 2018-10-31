@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+<div th:fragment="Company" style="height: 550px;">
+
+	<nav class="navbar navbar-expand-lg navbar-light">
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<button class="btn btn-outline-danger my-2 my-sm-0" type="button"
+			onclick="deleteCompany()">删除企业</button>
+		&nbsp;&nbsp;
+		<button class="btn btn-outline-success my-2 my-sm-0" type="button"
+			data-toggle="modal" data-target="#uploadCompanyModal">添加企业</button>
+	</div>
+	</nav>
+
+	<table class="table table-hover text-center"
+		style="margin-bottom: 100px;">
+		<thead>
+			<tr>
+				<th scope="col"></th>
+				<th scope="col">名称</th>
+				<th scope="col">描述</th>
+				<th scope="col">楼座</th>
+				<th scope="col">楼层</th>
+				<th scope="col">企业logo</th>
+				<th scope="col">详细信息</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="company : ${data.data}">
+				<th>
+					<div class="form-check">
+						<input type="checkbox" class="form-check-input"
+							name="companyCheck" th:value="${company.id}"> </input>
+					</div>
+				</th>
+				<td th:text="${company.name}"></td>
+				<td th:text="${company.description}"></td>
+				<td
+					th:text="${company.buildingId} == 1 ? 'A' : (${company.buildingId} == 2 ? 'B' : 'C')"></td>
+				<td th:switch="${company.floorId}"><span th:case="17"
+					th:text="副3F"></span> <span th:case="18" th:text="副4F"></span> <span
+					th:case="19" th:text="副5F"></span> <span th:case="*"
+					th:text="${company.floorId} + 'F'"></span></td>
+				<td><a th:href="${company.logoSrc.replace('\', '/')}"
+					class="badge badge-light">查看图片</a></td>
+				<td>
+					<button class="badge badge-info" type="button"
+						th:onclick="|companyDetail('${company.detail}')|">查看</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="modal fade" id="uploadCompanyModal" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">添加企业</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form action="#" th:action="@{/company/add}"
+						th:object="${uploadCompanyInput}" method="post" id="uploadCompany"
+						enctype="multipart/form-data">
+						<div class="form-group row">
+							<label for="name" class="col-sm-2 col-form-label">名称</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="name"
+									th:field="*{name}" required></input>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="alt" class="col-sm-2 col-form-label">描述</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="description"
+									th:field="*{description}" required></input>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="buildingId" class="col-sm-2 col-form-label">楼座</label>
+							<div class="col-sm-10">
+								<select id="buildingId" th:field="*{buildingId}"
+									class="form-control">
+									<option th:value="1">A座</option>
+									<option th:value="2">B座</option>
+									<option th:value="3">C座</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="floorId" class="col-sm-2 col-form-label">楼层</label>
+							<div class="col-sm-10">
+								<select id="floorId" th:field="*{floorId}" class="form-control">
+									<option th:value="1">1F</option>
+									<option th:value="2">2F</option>
+									<option th:value="3">3F</option>
+									<option th:value="4">4F</option>
+									<option th:value="5">5F</option>
+									<option th:value="6">6F</option>
+									<option th:value="7">7F</option>
+									<option th:value="8">8F</option>
+									<option th:value="9">9F</option>
+									<option th:value="10">10F</option>
+									<option th:value="11">11F</option>
+									<option th:value="12">12F</option>
+									<option th:value="13">13F</option>
+									<option th:value="14">14F</option>
+									<option th:value="15">15F</option>
+									<option th:value="16">16F</option>
+									<option th:value="17">副3F</option>
+									<option th:value="18">副4F</option>
+									<option th:value="19">副5F</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="logoSrc" class="col-sm-2 col-form-label">企业logo</label>
+							<div class="col-sm-10">
+								<input type="file" class="form-control-file" id="logoSrc"
+									th:field="*{logoSrc}" required></input>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="logoSrc" class="col-sm-2 col-form-label">详细信息</label>
+							<div class="col-sm-10">
+								<textarea name="content" id="companyDetailEditor" th:field="*{detail}" ></textarea>
+								<script>
+									ClassicEditor
+								    .create( document.querySelector("#companyDetailEditor"), {
+								        language: 'zh-cn',
+								    	ckfinder: {
+								            uploadUrl: "/img/upload"
+								        }
+								    } )
+								    .catch( error => {
+								        console.error( error );
+								    } );
+			    				</script>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">取消</button>
+					<a href="#" type="button" class="btn btn-primary"
+						onclick="javascript:$('#uploadCompany').submit()">上传</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="companyDetailModal" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">企业信息</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body companyDetailStyle" id="companyDetail">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">关闭</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</head>
+</html>

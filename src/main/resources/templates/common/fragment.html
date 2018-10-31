@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+
+<div th:fragment="ContactUs">
+	<div class="card" style="width: 18rem;">
+		<h5 class="card-header" style="background-color: #f57720;">联系我们</h5>
+		<img class="card-img-top" th:src="@{~/image/catactus.jpg}"
+			alt="Card image cap">
+			<div class="card-body" th:object="${nav.info}">
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item"><span class="font-weight-bold text-right">联系电话：</span><span th:text="*{telephoneNumber}"></span></li>
+					<li class="list-group-item"><span class="font-weight-bold text-right">公司传真：</span><span th:text="*{fax}"></span></li>
+					<li class="list-group-item"><span class="font-weight-bold text-right">手机号码：</span><span th:text="*{phoneNumber}"></span></li>
+					<li class="list-group-item"><span class="font-weight-bold text-right">&nbsp;客服QQ：</span><span th:text="*{qq}"></span></li>
+					<li class="list-group-item"><span class="font-weight-bold text-right">&nbsp;&nbsp;&nbsp;Email：</span><span th:text="*{email}"></span></li>
+					<li class="list-group-item"><span class="font-weight-bold text-right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;地址：</span><span th:text="*{address}"></span></li>
+				</ul>
+			</div>
+	</div>
+</div>
+</head>
+</html>
