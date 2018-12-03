@@ -1,5 +1,6 @@
-<div th:fragment="IndexSlide" class="container-fluid" style="height:354px;">
-	<div class="row">
+<div th:fragment="IndexSlide" class="container-fluid"
+	style="width: 1080px; height: 351px; margin-bottom: 46px; padding: 0px;">
+	<div class="row" style="margin-left: 0px; margin-right: 0px;">
 		<div id="birdScan" class="carousel slide mainPage"
 			data-ride="carousel" data-interval="2000">
 			<div class="carousel-inner">
@@ -24,11 +25,13 @@
 
 
 <div th:fragment="CompanyIconSlide" class="container-fluid"
-	style="height: 310px;">
-	<div class="col-2"></div>
-	<div class="col-10 w-100 companyIconScroll d-flex align-items-center justify-content-end" id="companyIconList" style="height:100%;">
-		<a class="company-link" th:each="logo:${nav.logos}" th:href="@{/company/{buildingName}/{id}/get(id=${logo.id}, buildingName=${nav.buildingName})}">
-			<img style="width:300px;height:200px;"th:src="${logo.logoSrc.replace('\', '/')}">
+	id="company-logo-scroll">
+	<div class="col companyIconScroll d-flex align-items-end justify-content-end"
+		id="companyIconList">
+		<a class="company-link" th:each="logo:${nav.logos}"
+			th:href="@{/company/{buildingName}/{id}/get(id=${logo.id}, buildingName=${nav.buildingName})}">
+			<img style="width: auto; height: 150px;"
+			th:src="${logo.logoSrc.replace('\', '/')}">
 		</a>
 	</div>
 </div>

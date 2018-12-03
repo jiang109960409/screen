@@ -43,8 +43,9 @@ a:hover {
 .scrollbox {
 	position:relative;
 	width:1080px;
-	height:700px;
+	height:902px;
 	overflow:hidden;
+	margin-left: -14px;
 }
 .scrollbox ul {
 	position:absolute;

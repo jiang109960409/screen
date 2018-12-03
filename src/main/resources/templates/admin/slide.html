@@ -8,14 +8,16 @@
 
 	<nav class="navbar navbar-expand-lg navbar-light">
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
-		<button class="btn btn-outline-danger my-2 my-sm-0" type="submit" onclick="deletePic()">删除图片</button>
+		<button class="btn btn-outline-danger my-2 my-sm-0" type="submit"
+			onclick="deletePic()">删除图片</button>
 		&nbsp;&nbsp;
 		<button class="btn btn-outline-success my-2 my-sm-0" type="button"
 			data-toggle="modal" data-target="#uploadPicModal">上传图片</button>
 	</div>
 	</nav>
 
-	<table class="table table-hover text-center" style="margin-bottom:100px;">
+	<table class="table table-hover text-center"
+		style="margin-bottom: 100px;">
 		<thead>
 			<tr>
 				<th scope="col"></th>
@@ -33,8 +35,8 @@
 			<tr th:each="slide : ${data.data}">
 				<th>
 					<div class="form-check">
-						<input type="checkbox" class="form-check-input" name="slideCheck" th:value="${slide.id}">
-						</input>
+						<input type="checkbox" class="form-check-input" name="slideCheck"
+							th:value="${slide.id}"> </input>
 					</div>
 				</th>
 				<td th:text="${slide.name}"></td>
@@ -42,11 +44,12 @@
 				<td th:text="${slide.width}"></td>
 				<td th:text="${slide.height}"></td>
 				<td th:text="${slide.fileSize}"></td>
-				<td th:text="${#calendars.format(slide.uploadDate,'yyyy-MM-dd hh:mm:ss')}"></td>
-				<td th:text="${slide.buildingId} == 1 ? 'az' : (${slide.buildingId} == 2 ? 'bz' : 'cz')"></td>
-				<td>
-					<a th:href="@{~/} + ${slide.src.replace('\', '/')}" class="badge badge-light">查看图片</a>
-				</td>
+				<td
+					th:text="${#calendars.format(slide.uploadDate,'yyyy-MM-dd hh:mm:ss')}"></td>
+				<td
+					th:text="${slide.buildingId} == 1 ? 'az' : (${slide.buildingId} == 2 ? 'bz' : 'cz')"></td>
+				<td><a th:href="@{~/} + ${slide.src.replace('\', '/')}"
+					class="badge badge-light">查看图片</a></td>
 			</tr>
 		</tbody>
 	</table>
@@ -62,30 +65,39 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<form action="#" th:action="@{/slide/add}" th:object="${uploadSlideInput}" method="post" id="uploadSlideInput" enctype="multipart/form-data">
+					<form action="#" th:action="@{/slide/add}"
+						th:object="${uploadSlideInput}" method="post"
+						id="uploadSlideInput" enctype="multipart/form-data">
 						<div class="form-group row">
 							<label for="src" class="col-sm-2 col-form-label">选择图片</label>
 							<div class="col-sm-10">
-								<input type="file" class="form-control-file" id="src" th:field="*{imgs}" required></input>
+								<input type="file" class="form-control-file" id="src"
+									th:field="*{imgs}" required></input>
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="name" class="col-sm-2 col-form-label">名称</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="name"  th:field="*{name}" required>
+								<input type="text" class="form-control" id="name"
+									th:field="*{name}" required>
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="alt" class="col-sm-2 col-form-label">标签</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="alt" th:field="*{alt}" required>
+								<input type="text" class="form-control" id="alt"
+									th:field="*{alt}" required>
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="buildingId" class="col-sm-2 col-form-label">写字楼ID</label>
+							<label for="buildingId" class="col-sm-2 col-form-label">写字楼</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="buildingId"
-									placeholder="A座ID：1，B座ID：2，C座ID：3" th:field="*{buildingId}" required>
+								<select id="buildingId" th:field="*{buildingId}"
+									class="form-control" required>
+									<option th:value="1">A座</option>
+									<option th:value="2">B座</option>
+									<option th:value="3">C座</option>
+								</select>
 							</div>
 						</div>
 					</form>
@@ -93,7 +105,8 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal">取消</button>
-					<a href="#" type="button" class="btn btn-primary" onclick="javascript:$('#uploadSlideInput').submit()">上传</a>
+					<a href="#" type="button" class="btn btn-primary"
+						onclick="javascript:$('#uploadSlideInput').submit()">上传</a>
 				</div>
 			</div>
 		</div>
