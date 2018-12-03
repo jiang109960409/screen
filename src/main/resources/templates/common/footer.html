@@ -1,11 +1,11 @@
 <div th:fragment="Footer" class="footwrap">
-	<div class="footer container">
+	<div class="footer container" style="margin-top:95px;">
 		<div class="row" th:object="${nav.info}">
 			<div class="col d-flex align-items-center">
 				<img class="rounded w-50" th:src="@{~/image/2d.jpg}" style="margin-top: 25px;">
 			</div>
-			<div class="col">
-				<div class="fottxt">
+			<div class="col d-flex align-items-center">
+				<div style="font-size:15px; color:white; margin-top:84px;">
 					电话：<span th:text="*{telephoneNumber}"></span> <br/>
 					传真：<span th:text="*{fax}"></span> <br>
 					地址：<span th:text="*{address}"></span> <br> 
@@ -14,8 +14,10 @@
 			</div>
 			<div class="col">
 				<dl class="fotphone">
-					<dt>招商联系电话</dt>
-					<dd><span th:text="*{telephoneNumber}"></span></dd>
+					<dt><img th:src="@{/image/phone.png}" style="width:20px;height:20px;margin-right:5px;">招商联系电话</dt>
+					<dd style="margin-bottom:20px;"><span th:text="*{telephoneNumber}"></span></dd>
+					<dt><img th:src="@{/image/techsupport.png}" style="width:20px;height:20px;margin-right:5px;">技术支持</dt>
+					<dd><span>浪曦科技（A座3楼）</span></dd>
 				</dl>
 			</div>
 		</div>

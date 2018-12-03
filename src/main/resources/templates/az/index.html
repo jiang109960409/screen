@@ -5,17 +5,49 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<div th:fragment="Index" class="hxysbg">
-	<div class="hxysbox container-fluid">
-		<div class="hxystit">
-			<span>园区楼层指示索引牌</span>
-		</div>
-		<div class="scrollbox" style="margin:auto">
-			<ul id="toplist" class="container" style="top: -219px;">
-				<li class="row w-100 company-li" th:each="floorId:${nav.company.keySet()}">
-					<div class="col-2">
-					</div>
-					<div class="col-2 d-flex align-items-center">
+	<div th:fragment="Index" class="hxysbg">
+		<div class="hxysbox container-fluid">
+			<div class="hxystit">
+				<span>园区楼层指示索引牌</span>
+			</div>
+			<div class="scrollbox" style="margin: auto">
+				<ul id="toplist" class="container" style="top: -219px;">
+					<li class="row w-100 company-li"
+						th:each="floorId:${nav.company.keySet()}">
+						<div class="col-2"></div>
+						<div class="col company-li2">
+							<div class="container-fluid">
+								<div class="row w-100">
+									<div class="col-2 d-flex align-items-center">
+										<div th:switch="${floorId}">
+											<h1 th:case="17" style="font-size: 45px;">
+												<span class="badge badge-pill badge-light" th:text="副3F"></span>
+											</h1>
+											<h1 th:case="18" style="font-size: 45px;">
+												<span class="badge badge-pill badge-light" th:text="副4F"></span>
+											</h1>
+											<h1 th:case="19" style="font-size: 45px;">
+												<span class="badge badge-pill badge-light" th:text="副5F"></span>
+											</h1>
+											<h1 th:case="*" style="font-size: 45px;">
+												<span class="badge badge-pill badge-light"
+													th:text="${floorId} + F"></span>
+											</h1>
+										</div>
+									</div>
+									<div class="col" style="margin-left: 150px;">
+										<div th:each="company:${nav.company[__${floorId}__]}"
+											style="margin-bottom: 10px;">
+											<a class="company-link"
+												th:href="@{/company/{buildingName}/{id}/get(id=${company.id}, buildingName=${nav.buildingName})}"
+												th:text="${company.name}"></a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div> <!-- 
+
+					<div class="col-2 d-flex align-items-center company-li2">
 						<div th:switch="${floorId}">
 							<h1 th:case="17" style="font-size: 50px;"><span class="badge badge-pill badge-light" th:text="副3F"></span></h1>
 							<h1 th:case="18" style="font-size: 50px;"><span class="badge badge-pill badge-light" th:text="副4F"></span></h1>
@@ -23,15 +55,16 @@
 							<h1 th:case="*" style="font-size: 50px;"><span class="badge badge-pill badge-light" th:text="${floorId} + F"></span></h1>
 						</div>
 					</div>
-					<div class="col" style="margin-left:150px;">
+					<div class="col company-li2" style="margin-left:150px;">
 						<div th:each="company:${nav.company[__${floorId}__]}" style="margin-bottom:10px;">
 							<a class="company-link" th:href="@{/company/{buildingName}/{id}/get(id=${company.id}, buildingName=${nav.buildingName})}" th:text="${company.name}"></a>
 						</div>
 					</div>
-				</li>
-			</ul>
+					 -->
+					</li>
+				</ul>
+			</div>
 		</div>
 	</div>
-</div>
 </head>
 </html>

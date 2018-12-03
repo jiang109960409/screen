@@ -55,7 +55,7 @@ public class SlideController {
 	@PostMapping("/add")
 	public ModelAndView uploadSlide(@ModelAttribute("uploadSlideInput") UploadSlideInput input, BindingResult result)
 			throws IOException {
-		String relativePath = "src\\main\\resources\\static\\image\\slide\\";
+		String relativePath = "static\\image\\slide\\";
 		String imagePath = new File("").getAbsolutePath() + "\\" + relativePath;
 		File fileNew = new File(imagePath);
 		if (!fileNew.exists())

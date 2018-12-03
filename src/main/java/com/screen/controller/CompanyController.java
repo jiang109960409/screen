@@ -60,7 +60,7 @@ public class CompanyController {
 			throws IOException {
 		int buildingId = input.getBuildingId();
 		int floorId = input.getFloorId();
-		String relativePath = "src\\main\\resources\\static\\image\\companylogo\\" + buildingId + "\\" + floorId + "\\";
+		String relativePath = "static\\image\\companylogo\\" + buildingId + "\\" + floorId + "\\";
 		String imagePath = new File("").getAbsolutePath() + "\\" + relativePath;
 		File fileNew = new File(imagePath);
 		if (!fileNew.exists())

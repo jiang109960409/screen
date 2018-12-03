@@ -136,7 +136,7 @@ public class TextController {
 
 	@PostMapping("/img/upload")
 	public Map<String, String> uploadImg(@RequestPart("upload") MultipartFile file) throws IOException {
-		String relativePath = "src\\main\\resources\\static\\image\\";
+		String relativePath = "\\static\\image\\upload\\";
 		String imagePath = new File("").getAbsolutePath() + "\\" + relativePath;
 		File fileNew = new File(imagePath);
 		if (!fileNew.exists())
@@ -145,7 +145,7 @@ public class TextController {
 		InputStream is = file.getInputStream();
 		BufferedImage bufferedImage = ImageIO.read(is);
 		ImageIO.write(bufferedImage, "png", new File(imagePath + id + "." + "png"));
-		String pathOnServer = "/image/" + id + "." + "png";
+		String pathOnServer = "/image/upload/" + id + "." + "png";
 		Map<String, String> result = new TreeMap<>();
 		result.put("uploaded", "true");
 		result.put("url", pathOnServer);
