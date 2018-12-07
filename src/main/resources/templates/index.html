@@ -35,17 +35,17 @@
 			speed : 1000,
 			showNum : 1
 		});
-        function jump(count) {  
-            window.setTimeout(function(){  
-                count--;  
-                if(count > 0) {  
-                    jump(count);  
-                } else {  
-                    location.href=$("#homeHref").attr("href");  
-                }  
-            }, 1000);  
-        }  
-       jump(7);
+		function jump(count) {
+			window.setTimeout(function() {
+				count--;
+				if (count > 0) {
+					jump(count);
+				} else {
+					location.href = $("#homeHref").attr("href");
+				}
+			}, 1000);
+		}
+		jump(7);
 	});
 </script>
 </head>

@@ -30,7 +30,7 @@
 		id="companyIconList">
 		<a class="company-link" th:each="logo:${nav.logos}"
 			th:href="@{/company/{buildingName}/{id}/get(id=${logo.id}, buildingName=${nav.buildingName})}">
-			<img style="width: auto; height: 150px;"
+			<img style="width: 150px; height: 150px;"
 			th:src="${logo.logoSrc.replace('\', '/')}">
 		</a>
 	</div>
