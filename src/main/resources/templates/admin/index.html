@@ -28,7 +28,7 @@
 		$("input[name='slideCheck']:checked").each(function() {
 			ids = ids + "," + this.value
 		});
-		if(ids.length == 0) {
+		if (ids.length == 0) {
 			alert("请选择要删除的图片");
 			return;
 		}
@@ -40,13 +40,13 @@
 			window.location.reload();
 		});
 	}
-	
+
 	function deleteCompany() {
 		var ids = ""
 		$("input[name='companyCheck']:checked").each(function() {
 			ids = ids + "," + this.value
 		});
-		if(ids.length == 0) {
+		if (ids.length == 0) {
 			alert("请选择要删除的公司");
 			return;
 		}
@@ -58,33 +58,41 @@
 			window.location.reload();
 		});
 	}
-	
-	function logout(){
-		location.href="/admin/login";
+
+	function logout() {
+		location.href = "/admin/login";
 	}
-	
-	function companyDetail(detail) {
-		if (detail == "null") {
-			$("#companyDetail").append("暂无企业详细信息");
+
+	function updateCompany(id, name, description, buildingId, floorId, logoSrc,
+			detail, showLevel) {
+		$("#updateCompanyId").val(id);
+		$("#updateCompanyName").val(name);
+		$("#updateCompanyDescription").val(description);
+		$("#updateCompanyBuildingId").val(buildingId);
+		$("#updateCompanyFloorId").val(floorId);
+		$("#updateCompanyShowLevel").val(showLevel);
+		
+		if (detail == 'null') {
+			updateCompanyEditor.setData("暂无详情");
 		} else {
-			$("#companyDetail").append(detail);
+			updateCompanyEditor.setData(detail);
 		}
-		$('#companyDetailModal').modal('show')
+
+		$("#updateCompanyModal").modal('show');
 	}
-	
 </script>
 <style>
-	.ck-editor__editable {
-		min-height: 600px;
-	}
+.ck-editor__editable {
+	min-height: 600px;
+}
 </style>
 <body>
 	<nav
 		class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
 		<a class="navbar-brand col-sm-3 col-md-2 mr-0 w-100" href="#">济南西部创新园</a>
 		<ul class="navbar-nav px-3">
-			<li class="nav-item text-nowrap"><button type="button" class="btn btn-dark" onclick="javascript: logout()">退出登录</button>
-			</li>
+			<li class="nav-item text-nowrap"><button type="button"
+					class="btn btn-dark" onclick="javascript: logout()">退出登录</button></li>
 		</ul>
 	</nav>
 	<div class="container-fluid" style="margin: 0px; padding: 0px;">
@@ -93,15 +101,24 @@
 				<div class="sidebar-sticky">
 					<div class="list-group text-center"
 						style="margin: 20px 5px auto 5px">
-						<a th:href="@{/company/list}" class="list-group-item list-group-item-action">入驻企业</a>
-						<a th:href="@{/slide/list}" class="list-group-item list-group-item-action">幻灯片</a> 
-						<a th:href="@{/info/get}" class="list-group-item list-group-item-action">创新园信息</a> 
-						<a th:href="@{/aboutus/get}" class="list-group-item list-group-item-action">关于我们</a> 
-						<a th:href="@{/comein/get}"  class="list-group-item list-group-item-action">我要入驻</a>
-						<a th:href="@{/service/get}"  class="list-group-item list-group-item-action">我要服务</a>
-						<a th:href="@{/job/get}"  class="list-group-item list-group-item-action">人才招聘</a>
-						<a th:href="@{/strength/get}"  class="list-group-item list-group-item-action">园区亮点</a>
-						<a th:href="@{/contact/get}"  class="list-group-item list-group-item-action">联系我们</a>
+						<a th:href="@{/company/list}"
+							class="list-group-item list-group-item-action">入驻企业</a> <a
+							th:href="@{/slide/list}"
+							class="list-group-item list-group-item-action">幻灯片</a> <a
+							th:href="@{/info/get}"
+							class="list-group-item list-group-item-action">创新园信息</a> <a
+							th:href="@{/aboutus/get}"
+							class="list-group-item list-group-item-action">关于我们</a> <a
+							th:href="@{/comein/get}"
+							class="list-group-item list-group-item-action">我要入驻</a> <a
+							th:href="@{/service/get}"
+							class="list-group-item list-group-item-action">我要服务</a> <a
+							th:href="@{/job/get}"
+							class="list-group-item list-group-item-action">人才招聘</a> <a
+							th:href="@{/strength/get}"
+							class="list-group-item list-group-item-action">园区亮点</a> <a
+							th:href="@{/contact/get}"
+							class="list-group-item list-group-item-action">联系我们</a>
 					</div>
 				</div>
 			</nav>

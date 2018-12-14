@@ -15,34 +15,46 @@ public class CompanyDO {
 	private String detail;
 	private int buildingId;
 	private int floorId;
+	private int showLevel;
 
 	public CompanyDO() {
 	}
 
-	public CompanyDO(String name, String logoSrc, String description, int buildingId, int floorId) {
+	public CompanyDO(int id, String name, String logoSrc, String description, String detail, int buildingId,
+			int floorId, int showLevel) {
+		super();
+		this.id = id;
 		this.name = name;
 		this.logoSrc = logoSrc;
 		this.description = description;
+		this.detail = detail;
 		this.buildingId = buildingId;
 		this.floorId = floorId;
+		this.showLevel = showLevel;
 	}
 
-	public CompanyDO(int id, String name, String logoSrc, String description, int buildingId, int floorId) {
+	public CompanyDO(int id, String name, String logoSrc, String description, String detail, int buildingId,
+			int floorId) {
+		super();
 		this.id = id;
 		this.name = name;
 		this.logoSrc = logoSrc;
 		this.description = description;
+		this.detail = detail;
 		this.buildingId = buildingId;
 		this.floorId = floorId;
+
 	}
-	public CompanyDO(String name, String logoSrc, String description, int buildingId, int floorId, String detail) {
-		this.id = id;
+
+	public CompanyDO(String name, String logoSrc, String description, int buildingId, int floorId, String detail,
+			int showLevel) {
 		this.name = name;
 		this.logoSrc = logoSrc;
 		this.description = description;
 		this.buildingId = buildingId;
 		this.floorId = floorId;
 		this.detail = detail;
+		this.showLevel = showLevel;
 	}
 
 	public String getDetail() {
@@ -99,6 +111,14 @@ public class CompanyDO {
 
 	public void setFloorId(int floorId) {
 		this.floorId = floorId;
+	}
+
+	public int getShowLevel() {
+		return showLevel;
+	}
+
+	public void setShowLevel(int showLevel) {
+		this.showLevel = showLevel;
 	}
 
 }

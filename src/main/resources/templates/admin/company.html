@@ -26,7 +26,6 @@
 				<th scope="col">楼座</th>
 				<th scope="col">楼层</th>
 				<th scope="col">企业logo</th>
-				<th scope="col">详细信息</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -37,7 +36,9 @@
 							name="companyCheck" th:value="${company.id}"> </input>
 					</div>
 				</th>
-				<td th:text="${company.name}"></td>
+				<td><button style="background-color: white;" type="button"
+						class="btn btn-light" th:text="${company.name}"
+						th:onclick="'javascript:updateCompany(\''+${company.id}+'\', \''+${company.name}+'\', \''+${company.description}+'\', \''+${company.buildingId}+'\',\''+${company.floorId}+'\', \''+${company.logoSrc.replace('\', '/')}+'\', \''+${company.detail}+'\', \''+${company.showLevel}+'\')'"></button></td>
 				<td th:text="${company.description}"></td>
 				<td
 					th:text="${company.buildingId} == 1 ? 'A' : (${company.buildingId} == 2 ? 'B' : 'C')"></td>
@@ -47,10 +48,6 @@
 					th:text="${company.floorId} + 'F'"></span></td>
 				<td><a th:href="${company.logoSrc.replace('\', '/')}"
 					class="badge badge-light">查看图片</a></td>
-				<td>
-					<button class="badge badge-info" type="button"
-						th:onclick="|companyDetail('${company.detail}')|">查看</button>
-				</td>
 			</tr>
 		</tbody>
 	</table>
@@ -80,7 +77,7 @@
 							<label for="alt" class="col-sm-2 col-form-label">描述</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control" id="description"
-									th:field="*{description}" required></input>
+									th:field="*{description}"></input>
 							</div>
 						</div>
 						<div class="form-group row">
@@ -121,16 +118,35 @@
 							</div>
 						</div>
 						<div class="form-group row">
+							<label for="showLevel" class="col-sm-2 col-form-label">显示等级</label>
+							<div class="col-sm-10">
+								<select id="showLevel" th:field="*{showLevel}" class="form-control" placeholder="页面显示等级（取值范围1-10的整数，默认为1, 10表示显示等级最高）">
+									<option th:value="0">页面显示等级（取值范围1-10的整数，10表示显示等级最高，也就是显示在列表最前面）</option>
+									<option th:value="1">1</option>
+									<option th:value="2">2</option>
+									<option th:value="3">3</option>
+									<option th:value="4">4</option>
+									<option th:value="5">5</option>
+									<option th:value="6">6</option>
+									<option th:value="7">7</option>
+									<option th:value="8">8</option>
+									<option th:value="9">9</option>
+									<option th:value="10">10</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group row">
 							<label for="logoSrc" class="col-sm-2 col-form-label">企业logo</label>
 							<div class="col-sm-10">
 								<input type="file" class="form-control-file" id="logoSrc"
-									th:field="*{logoSrc}" required></input>
+									th:field="*{logoSrc}"></input>
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="logoSrc" class="col-sm-2 col-form-label">详细信息</label>
 							<div class="col-sm-10">
-								<textarea name="content" id="companyDetailEditor" th:field="*{detail}" ></textarea>
+								<textarea name="content" id="companyDetailEditor"
+									th:field="*{detail}"></textarea>
 								<script>
 									ClassicEditor
 								    .create( document.querySelector("#companyDetailEditor"), {
@@ -173,6 +189,142 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal">关闭</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="modal fade" id="updateCompanyModal" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">修改企业信息</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form action="#" th:action="@{/company/update}"
+						th:object="${updateCompanyInput}" method="post" id="updateCompany"
+						enctype="multipart/form-data">
+						<div class="form-group row" hidden>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="updateCompanyId"
+									th:field="*{id}"></input>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="updateCompanyName" class="col-sm-2 col-form-label">名称</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="updateCompanyName"
+									th:field="*{name}" required></input>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="updateCompanyDescription"
+								class="col-sm-2 col-form-label">描述</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control"
+									id="updateCompanyDescription" th:field="*{description}"></input>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="updateCompanyBuildingId"
+								class="col-sm-2 col-form-label">楼座</label>
+							<div class="col-sm-10">
+								<select id="updateCompanyBuildingId" class="form-control"
+									th:field="*{buildingId}">
+									<option th:value="1">A座</option>
+									<option th:value="2">B座</option>
+									<option th:value="3">C座</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="updateCompanyFloorId" class="col-sm-2 col-form-label">楼层</label>
+							<div class="col-sm-10">
+								<select id="updateCompanyFloorId" class="form-control"
+									th:field="*{floorId}">
+									<option th:value="1">1F</option>
+									<option th:value="2">2F</option>
+									<option th:value="3">3F</option>
+									<option th:value="4">4F</option>
+									<option th:value="5">5F</option>
+									<option th:value="6">6F</option>
+									<option th:value="7">7F</option>
+									<option th:value="8">8F</option>
+									<option th:value="9">9F</option>
+									<option th:value="10">10F</option>
+									<option th:value="11">11F</option>
+									<option th:value="12">12F</option>
+									<option th:value="13">13F</option>
+									<option th:value="14">14F</option>
+									<option th:value="15">15F</option>
+									<option th:value="16">16F</option>
+									<option th:value="17">副3F</option>
+									<option th:value="18">副4F</option>
+									<option th:value="19">副5F</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="showLevel" class="col-sm-2 col-form-label">显示等级</label>
+							<div class="col-sm-10">
+								<select id="updateCompanyShowLevel" th:field="*{showLevel}" class="form-control">
+									<option th:value="0">页面显示等级（取值范围1-10的整数，10表示显示等级最高，也就是显示在列表最前面）</option>
+									<option th:value="1">1</option>
+									<option th:value="2">2</option>
+									<option th:value="3">3</option>
+									<option th:value="4">4</option>
+									<option th:value="5">5</option>
+									<option th:value="6">6</option>
+									<option th:value="7">7</option>
+									<option th:value="8">8</option>
+									<option th:value="9">9</option>
+									<option th:value="10">10</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="updateCompanyLogoSrc" class="col-sm-2 col-form-label">企业logo</label>
+							<div class="col-sm-10">
+								<input type="file" class="form-control-file"
+									id="updateCompanyLogoSrc" th:field="*{logoSrc}"></input>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="updateCompanyDetail" class="col-sm-2 col-form-label">详细信息</label>
+							<div class="col-sm-10">
+								<textarea name="content" id="updateCompanyDetail"
+									th:field="*{detail}"></textarea>
+								<script>
+									var updateCompanyEditor;
+									ClassicEditor
+								    .create( document.querySelector("#updateCompanyDetail"), {
+								        language: 'zh-cn',
+								    	ckfinder: {
+								            uploadUrl: "/img/upload"
+								        }
+								    } )
+								    .then(editor => {
+								    	updateCompanyEditor = editor;
+								    })
+								    .catch( error => {
+								        console.error( error );
+								    } );
+			    				</script>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">取消</button>
+					<a href="#" type="button" class="btn btn-primary"
+						onclick="javascript:$('#updateCompany').submit()">修改</a>
 				</div>
 			</div>
 		</div>

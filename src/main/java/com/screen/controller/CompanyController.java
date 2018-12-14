@@ -28,6 +28,7 @@ import com.mysql.jdbc.StringUtils;
 import com.screen.domain.CompanyDO;
 import com.screen.dto.NavDTO;
 import com.screen.dto.RestRespBody;
+import com.screen.dto.UpdateCompanyInput;
 import com.screen.dto.UploadCompanyInput;
 import com.screen.mapper.CompanyMapper;
 import com.screen.mapper.TextMapper;
@@ -46,7 +47,7 @@ public class CompanyController {
 	private CompanyMapper companyMapper;
 	@Autowired
 	private TextMapper textMapper;
-	
+
 	@GetMapping("/list")
 	public ModelAndView listSlide() {
 		ModelAndView mav = new ModelAndView("admin/index");
@@ -56,22 +57,55 @@ public class CompanyController {
 	}
 
 	@PostMapping("/add")
-	public ModelAndView uploadSlide(@ModelAttribute("uploadCompanyInput") UploadCompanyInput input)
-			throws IOException {
+	public ModelAndView uploadSlide(@ModelAttribute("uploadCompanyInput") UploadCompanyInput input) throws IOException {
 		int buildingId = input.getBuildingId();
 		int floorId = input.getFloorId();
-		String relativePath = "static\\image\\companylogo\\" + buildingId + "\\" + floorId + "\\";
-		String imagePath = new File("").getAbsolutePath() + "\\" + relativePath;
-		File fileNew = new File(imagePath);
-		if (!fileNew.exists())
-			fileNew.mkdirs();
-
 		MultipartFile file = input.getLogoSrc();
 		InputStream is = file.getInputStream();
 		BufferedImage bufferedImage = ImageIO.read(is);
-		long id = System.currentTimeMillis();
-		ImageIO.write(bufferedImage, "png", new File(imagePath + id + "." + "png"));
-		companyMapper.addCompany(new CompanyDO(input.getName(), "\\image\\companylogo\\" + buildingId + "\\" + floorId + "\\"+ id + "." + "png", input.getDescription(), buildingId, floorId, input.getDetail()));
+		if (bufferedImage != null) {
+			String relativePath = "static\\image\\companylogo\\" + buildingId + "\\" + floorId + "\\";
+			String imagePath = new File("").getAbsolutePath() + "\\" + relativePath;
+			File fileNew = new File(imagePath);
+			if (!fileNew.exists())
+				fileNew.mkdirs();
+
+			long id = System.currentTimeMillis();
+			ImageIO.write(bufferedImage, "png", new File(imagePath + id + "." + "png"));
+			companyMapper.addCompany(new CompanyDO(input.getName(),
+					"\\image\\companylogo\\" + buildingId + "\\" + floorId + "\\" + id + "." + "png",
+					input.getDescription(), buildingId, floorId, input.getDetail(), input.getShowLevel()));
+		} else {
+			companyMapper.addCompany(
+					new CompanyDO(input.getName(), "", input.getDescription(), buildingId, floorId, input.getDetail(), input.getShowLevel()));
+		}
+		return new ModelAndView("redirect:/company/list");
+	}
+
+	@PostMapping("/update")
+	public ModelAndView updateCompany(@ModelAttribute("updateCompanyInput") UpdateCompanyInput input)
+			throws IOException {
+		int buildingId = input.getBuildingId();
+		int floorId = input.getFloorId();
+		MultipartFile file = input.getLogoSrc();
+		InputStream is = file.getInputStream();
+		BufferedImage bufferedImage = ImageIO.read(is);
+		if (bufferedImage != null) {
+			String relativePath = "static\\image\\companylogo\\" + buildingId + "\\" + floorId + "\\";
+			String imagePath = new File("").getAbsolutePath() + "\\" + relativePath;
+			File fileNew = new File(imagePath);
+			if (!fileNew.exists())
+				fileNew.mkdirs();
+
+			long id = System.currentTimeMillis();
+			ImageIO.write(bufferedImage, "png", new File(imagePath + id + "." + "png"));
+			companyMapper.updateCompanyWithLogo(new CompanyDO(input.getId(), input.getName(),
+					"\\image\\companylogo\\" + buildingId + "\\" + floorId + "\\" + id + "." + "png",
+					input.getDescription(), input.getDetail(), buildingId, floorId, input.getShowLevel()));
+		} else {
+			companyMapper.updateCompanyWithoutLogo(new CompanyDO(input.getId(), input.getName(), "",
+					input.getDescription(), input.getDetail(), buildingId, floorId, input.getShowLevel()));
+		}
 		return new ModelAndView("redirect:/company/list");
 	}
 
@@ -84,18 +118,20 @@ public class CompanyController {
 			out.flush();
 			out.close();
 		}
-		List<Integer> ids = Arrays.asList(idsStr.split(",")).parallelStream().map(l -> Integer.parseInt(l)).collect(Collectors.toList());
+		List<Integer> ids = Arrays.asList(idsStr.split(",")).parallelStream().map(l -> Integer.parseInt(l))
+				.collect(Collectors.toList());
 		companyMapper.deleteCompany(ids);
 		PrintWriter out = response.getWriter();
 		out.print("{\"message\":\"删除成功\"}");
 		out.flush();
 		out.close();
 	}
-	
+
 	@GetMapping("/{buildingName}/{id}/get")
 	public ModelAndView getCompany(@PathVariable("id") Integer id, @PathVariable("buildingName") String buildingName) {
 		ModelAndView mav = new ModelAndView("index");
-		NavDTO nav = new NavDTO(false, "companydetail", buildingName, companyMapper.getCompanyDetail(id), textMapper.getInfo());
+		NavDTO nav = new NavDTO(false, "companydetail", buildingName, companyMapper.getCompanyDetail(id),
+				textMapper.getInfo());
 		mav.addObject("nav", nav);
 		return mav;
 	}
@@ -103,5 +139,10 @@ public class CompanyController {
 	@ModelAttribute("uploadCompanyInput")
 	public UploadCompanyInput uploadCompanyInput() {
 		return new UploadCompanyInput();
+	}
+
+	@ModelAttribute("updateCompanyInput")
+	public UpdateCompanyInput updateCompanyInput() {
+		return new UpdateCompanyInput();
 	}
 }

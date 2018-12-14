@@ -2,8 +2,9 @@ package com.screen.dto;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class UploadCompanyInput {
+public class UpdateCompanyInput {
 
+	private int id;
 	private String name;
 	private MultipartFile logoSrc;
 	private String description;
@@ -18,6 +19,14 @@ public class UploadCompanyInput {
 
 	public void setShowLevel(int showLevel) {
 		this.showLevel = showLevel;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -44,6 +53,14 @@ public class UploadCompanyInput {
 		this.description = description;
 	}
 
+	public String getDetail() {
+		return detail;
+	}
+
+	public void setDetail(String detail) {
+		this.detail = detail;
+	}
+
 	public int getBuildingId() {
 		return buildingId;
 	}
@@ -58,14 +75,6 @@ public class UploadCompanyInput {
 
 	public void setFloorId(int floorId) {
 		this.floorId = floorId;
-	}
-
-	public String getDetail() {
-		return detail;
-	}
-
-	public void setDetail(String detail) {
-		this.detail = detail;
 	}
 
 }
