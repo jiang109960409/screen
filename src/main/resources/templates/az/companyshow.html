@@ -31,18 +31,21 @@
 						<div class="card-body">
 							<div class="card-columns">
 								<div th:each="company : ${nav.data}">
-									<div class="card" style="margin-bottom: 5px;height:400px;">
+									<div class="card" style="margin-bottom: 5px; height: 400px;">
 										<img class="card-img-top w-100"
+											th:if="${company.logoSrc} != ''"
 											th:src="${company.logoSrc.replace('\', '/')}"
-											alt="${company.name}" style="width:150px;height:150px;">
+											alt="${company.name}" style="width: 150px; height: 150px;"></img>
 										<div class="card-body">
 											<h5 class="card-title" th:text="${company.name}"></h5>
 											<p class="card-text" th:text="${company.description}"></p>
-											<a th:href="@{/company/{buildingName}/{id}/get(id=${company.id}, buildingName=${nav.buildingName})}" class="badge badge-info">查看详情</a>
+											<a
+												th:href="@{/company/{buildingName}/{id}/get(id=${company.id}, buildingName=${nav.buildingName})}"
+												class="badge badge-info">查看详情</a>
 										</div>
 									</div>
-									</div>
 								</div>
+							</div>
 						</div>
 					</div>
 				</div>

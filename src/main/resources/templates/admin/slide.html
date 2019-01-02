@@ -47,7 +47,7 @@
 				<td
 					th:text="${#calendars.format(slide.uploadDate,'yyyy-MM-dd hh:mm:ss')}"></td>
 				<td
-					th:text="${slide.buildingId} == 1 ? 'az' : (${slide.buildingId} == 2 ? 'bz' : 'cz')"></td>
+					th:text="${slide.buildingId} == 1 ? 'a' : (${slide.buildingId} == 2 ? 'b' : (${slide.buildingId} == 3 ? 'c' : 'abc'))"></td>
 				<td><a th:href="@{~/} + ${slide.src.replace('\', '/')}"
 					class="badge badge-light">查看图片</a></td>
 			</tr>
@@ -97,6 +97,7 @@
 									<option th:value="1">A座</option>
 									<option th:value="2">B座</option>
 									<option th:value="3">C座</option>
+									<option th:value="4">ABC座</option>
 								</select>
 							</div>
 						</div>

@@ -15,7 +15,7 @@ public interface AppMapper {
 	@Select("select * from admin_user where username = #{username} and password = #{password} limit 1")
 	UserDO getUser(@Param("username") String username, @Param("password") String password);
 
-	@Select("select * from admin_slide where building_id = #{arg1} order by upload_date desc")
+	@Select("select * from admin_slide where building_id = #{arg1} or building_id = 4 order by upload_date desc")
 	List<SlideDO> listSlide(int buildingId);
 
 }

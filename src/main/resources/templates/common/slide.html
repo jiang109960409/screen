@@ -26,12 +26,11 @@
 
 <div th:fragment="CompanyIconSlide" class="container-fluid"
 	id="company-logo-scroll">
-	<div
-		class="col companyIconScroll d-flex align-items-end justify-content-end"
-		id="companyIconList">
-		<a class="company-link" th:each="logo:${nav.logos}"
+	<marquee id="companyIconList" class="w-100 h-100" scrollamount="15"
+		scrolldelay="0" direction="left">
+		<a id="company-link-logo" th:each="logo:${nav.logos}"
 			th:href="@{/company/{buildingName}/{id}/get(id=${logo.id}, buildingName=${nav.buildingName})}">
-			<img class="w-100 h-100" th:src="${logo.logoSrc.replace('\', '/')}"></img>
+			<img th:src="${logo.logoSrc.replace('\', '/')}"></img>
 		</a>
-	</div>
+	</marquee>
 </div>
